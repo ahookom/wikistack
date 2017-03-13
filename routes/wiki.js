@@ -16,6 +16,7 @@ router.post('/',function(req,res,next){
   let page = Page.build({
     title: req.body.title,
     content: req.body.content,
+    status: req.body.status
   });
 
   let author = User.build({
@@ -41,6 +42,18 @@ router.post('/',function(req,res,next){
 router.get('/add',function(req,res,next){
 
   res.render('addpage');
+});
+
+router.get('/:page',function(req,res,next){
+  Page.findAll({
+    where: {
+      urlTitle: req.params.page
+    }
+  }).then(function(result,err){
+    console.log(result);
+    res.render('wikipage',{page: result});
+  }).catch(next);
+
 });
 
 

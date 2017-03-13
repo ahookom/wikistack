@@ -17,18 +17,19 @@ var Page = db.define('page', {
     status: {
         type: Sequelize.ENUM('open', 'closed')
     }
-}, {
-  getterMethods: {
-    route: function() { return '/wiki/' + this.getDataValue('urlTitle');}
-  }
-},
-  {
+},  {
     hooks: {
       beforeValidate: function(page) {
+        console.log('made it');
         page.urlTitle = page.title.replace(/[^\w+]/g, '_');
       }
     }
-  });
+  }, {
+  getterMethods: {
+    route: function() { return '/wiki/' + this.getDataValue('urlTitle');}
+  }
+}
+);
 
 var User = db.define('user', {
     name: {
