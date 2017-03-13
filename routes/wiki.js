@@ -11,10 +11,11 @@ router.get('/',function(req,res,next){
 
 
 router.post('/',function(req,res,next){
-
+  // let newUrl = req.body.title.replace(/[^\w+]/g, '_');
+  // console.log('req.body.title , newUrl: ', req.body.title, newUrl);
   let page = Page.build({
     title: req.body.title,
-    content: req.body.content
+    content: req.body.content,
   });
 
   let author = User.build({

@@ -21,7 +21,14 @@ var Page = db.define('page', {
   getterMethods: {
     route: function() { return '/wiki/' + this.getDataValue('urlTitle');}
   }
-});
+},
+  {
+    hooks: {
+      beforeValidate: function(page) {
+        page.urlTitle = page.title.replace(/[^\w+]/g, '_');
+      }
+    }
+  });
 
 var User = db.define('user', {
     name: {
