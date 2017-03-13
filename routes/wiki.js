@@ -24,12 +24,12 @@ router.post('/',function(req,res,next){
     email: req.body.email
   });
 
-  page.save()
+  author.save()
   .then(function(){
-    return author.save();
+    return page.save();
   })
-  .then(function(){
-    res.redirect('/');
+  .then(function(savePage){
+    res.redirect(savePage.route);
   })
   .catch(function(err){
 
@@ -50,12 +50,13 @@ router.get('/:page',function(req,res,next){
       urlTitle: req.params.page
     }
   }).then(function(result,err){
-    console.log(result);
-    res.render('wikipage',{page: result});
+    console.log(result[0].dataValues);
+    res.render('wikipage',{page: result[0].dataValues});
   }).catch(next);
 
 });
 
-
+router.page = Page;
+router.user = User;
 
 module.exports = router;

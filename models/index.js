@@ -23,10 +23,11 @@ var Page = db.define('page', {
         console.log('made it');
         page.urlTitle = page.title.replace(/[^\w+]/g, '_');
       }
-    }
-  }, {
+    },
   getterMethods: {
-    route: function() { return '/wiki/' + this.getDataValue('urlTitle');}
+    route: function() {
+      console.log('urlTitle ', this.getDataValue('urlTitle'));
+      return '/wiki/' + this.getDataValue('urlTitle');}
   }
 }
 );

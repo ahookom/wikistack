@@ -7,7 +7,14 @@ let wiki = require('./wiki.js');
 router.use('/wiki',wiki);
 
 router.get('/',function(req,res,next){
-  res.render('index.html');
+  wiki.page.findAll()
+  .then(function(results) {
+    results = results.map(function(result) {
+      return result.dataValues;
+    });
+    console.log(results);
+    res.render('index.html', {pages:results});
+  });
   ///add some stuff
 });
 
